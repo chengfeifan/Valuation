@@ -18,7 +18,7 @@
 #' g = 0.03
 #' Gordon(DSP,DSP_n,r,g)
 #' @export
-Gordon <- function(DSP,DSP_n,r,g){
+Gordon.T <- function(DSP,DSP_n,r,g){
   P <- 0
   for(i in seq_along(DSP)){
     P <- P + DSP[i]/((1+r)^i)
@@ -52,5 +52,54 @@ PE.T <- function(DSP,EPS,r,PE){
   n <- length(DSP)
   P_n <- PE * EPS
   P <- P + P_n/((1+r)^n)
+  return(P)
+}
+
+### 经济增加值折现法
+#' EVA.G
+#' @description 公司运用资本所创造的高于资本成本的价值，它等于投入资本回报率ROIC
+#' 与资本成本WACC之差乘以投入成本IC，根据Gordon永续增长模型计算
+#' @param IC0, 投入成本
+#' @param EVA, 从第一年到第n每年资本增加值
+#' @param WACC, 资本成本
+#' @param ROIC, 投入资本回报率
+#' @param NOPLAT, n年税后净利润
+#' @param g，增长率
+#' @return P, 终值
+#' @examples
+#' 
+#' @export
+EVA.G <- function(IC0,EVA,WACC,NOPLAT,ROIC,g){
+  P <- IC0
+  for(i in seq_along(EVA)){
+    P <- P + EVA[i]/((1+WACC)^i)
+  }
+  n <- length(EVA)
+  P_n <- NOPLAT * (1 + g) * (ROIC - WACC)/((WACC - g) * ROIC * (1 + WACC)^n)
+  P <- P + P_n
+  return(P)
+}
+
+#' EVA.T
+#' @description 公司运用资本所创造的高于资本成本的价值，它等于投入资本回报率ROIC
+#' 与资本成本WACC之差乘以投入成本IC，根据Gordon永续增长模型计算
+#' @param IC0, 投入成本
+#' @param EVA, 从第一年到第n每年资本增加值
+#' @param WACC, 资本成本
+#' @param IC_n, 第n年投入资本
+#' @param EBITDA, 第n年息税折旧摊销前利润
+#' @param M，EV/EBITDA 退出倍数
+#' @return P, 终值
+#' @examples
+#' 
+#' @export
+EVA.T <- function(IC0,EVA,WACC,IC_n,EBITDA,M){
+  P <- IC0
+  for(i in seq_along(EVA)){
+    P <- P + EVA[i]/((1+WACC)^i)
+  }
+  n <- length(EVA)
+  P_n <- (EBITDA * M - IC_n) / ((1 + WACC)^n)
+  P <- P + P_n
   return(P)
 }

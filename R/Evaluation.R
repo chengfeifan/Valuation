@@ -42,7 +42,7 @@ Gordon.T <- function(DSP,DSP_n,r,g){
 #' EPS = 5
 #' r = 0.1
 #' PE = 0.03
-#' Gordon(DSP,DSP_n,r,g)
+#' PE.T(DSP,DSP_n,r,g)
 #' @export
 PE.T <- function(DSP,EPS,r,PE){
   P <- 0
@@ -65,6 +65,14 @@ PE.T <- function(DSP,EPS,r,PE){
 #' @param ROIC, 投入资本回报率
 #' @param NOPLAT, n年税后净利润
 #' @param g，增长率
+#' @examples
+#' IC0 = 10
+#' EVA = c(1,2,3,4)
+#' WACC = 0.1
+#' NOPLAT = 6
+#' ROIC = 0.15
+#' g = 0.03
+#' EVA.G(IC0,EVA,WACC,NOPLAT,ROIC,g)
 #' @return P, 终值
 #' @examples
 #' 
@@ -91,7 +99,13 @@ EVA.G <- function(IC0,EVA,WACC,NOPLAT,ROIC,g){
 #' @param M，EV/EBITDA 退出倍数
 #' @return P, 终值
 #' @examples
-#' 
+#' IC0 = 10
+#' EVA = c(1,2,3,4)
+#' WACC = 0.1
+#' IC_n = 2
+#' EBITDA = 6
+#' M = 2
+#' EVA.T(IC0,EVA,WACC,IC_n,EBITDA,M)
 #' @export
 EVA.T <- function(IC0,EVA,WACC,IC_n,EBITDA,M){
   P <- IC0

@@ -71,8 +71,18 @@ http2-proxy=yes
 tls-proto-list=TLSv1.3" > /etc/nghttpx/nghttpx.conf
 
 # 重启服务
-systemctl start squid
+## 开放端口
+sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
+sudo iptables -A INPUT -p udp -m udp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p udp -m udp --dport 443 -j ACCEPT
+sudo iptables -A INPUT -p udp -m udp --dport 8443 -j ACCEPT
+
+# 启动squid和nghttpx
+systemctl restart squid
 systemctl stop nghttpx
 nohup nghttpx >/dev/null 2>&1 &
+
 
 

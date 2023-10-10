@@ -16,8 +16,8 @@ systemctl stop apache2
 # 使用iptables 开放：80,443,8443端口
 sudo iptables -A INPUT -p udp -m udp --dport 80 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp --dport 443 -j ACCEPT
-sudo iptables -A INPUT -p udp -m udp --dport 8443 -j ACCEPT
-sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
+sudo iptables -A INPUT -p udp -m udp --dport 8444 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 8444 -j ACCEPT
 sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 
@@ -25,7 +25,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 iptables-save
 
 # 颁发证书
-yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d chattw.chengff.com --agree-tos
+yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d safe.chengff.com --agree-tos
 
 # 安装squid和nghttpx
 sudo apt-get -y install squid
@@ -58,13 +58,13 @@ via off
 forwarded_for delete" >> /etc/squid/squid.conf
 
 ## nghttpx.conf
-echo "frontend=*,8443
+echo "frontend=*,8444
 
 backend=127.0.0.1,8000
 
-private-key-file=/etc/letsencrypt/live/chattw.chengff.com/privkey.pem
+private-key-file=/etc/letsencrypt/live/safe.chengff.com/privkey.pem
 
-certificate-file=/etc/letsencrypt/live/chattw.chengff.com/fullchain.pem
+certificate-file=/etc/letsencrypt/live/safe.chengff.com/fullchain.pem
 
 http2-proxy=yes
 
@@ -72,12 +72,12 @@ tls-proto-list=TLSv1.3" > /etc/nghttpx/nghttpx.conf
 
 # 重启服务
 ## 开放端口
-sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 8444 -j ACCEPT
 sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp --dport 80 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp --dport 443 -j ACCEPT
-sudo iptables -A INPUT -p udp -m udp --dport 8443 -j ACCEPT
+sudo iptables -A INPUT -p udp -m udp --dport 8444 -j ACCEPT
 
 # 启动squid和nghttpx
 systemctl restart squid

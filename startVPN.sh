@@ -62,9 +62,9 @@ echo "frontend=*,8444
 
 backend=127.0.0.1,8000
 
-private-key-file=/etc/letsencrypt/live/safe.chengff.com/privkey.pem
+private-key-file=/etc/letsencrypt/live/ff.chengff.com/privkey.pem
 
-certificate-file=/etc/letsencrypt/live/safe.chengff.com/fullchain.pem
+certificate-file=/etc/letsencrypt/live/ff.chengff.com/fullchain.pem
 
 http2-proxy=yes
 

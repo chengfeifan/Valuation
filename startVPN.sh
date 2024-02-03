@@ -25,7 +25,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 iptables-save
 
 # 颁发证书
-yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d safe.chengff.com --agree-tos
+yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d ff.chengff.com --agree-tos
 
 # 安装squid和nghttpx
 sudo apt-get -y install squid

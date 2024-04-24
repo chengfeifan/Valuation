@@ -9,4 +9,4 @@ systemctl start squid
 nohup nghttpx >/dev/null 2>&1 &
 
 # 更新证书
-sudo certbot certonly --standalone --email 1105470619@qq.com -d jtest.chengfeifan.com --agree-tos
+sudo certbot certonly --standalone --email 1105470619@qq.com -d safe.chengfeifan.com --agree-tos

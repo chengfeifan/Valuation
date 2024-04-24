@@ -25,7 +25,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 iptables-save
 
 # 颁发证书
-yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d ff.chengff.com --agree-tos
+yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d safe.chengff.com --agree-tos
 
 # 安装squid和nghttpx
 sudo apt-get -y install squid
@@ -62,9 +62,9 @@ echo "frontend=*,8444
 
 backend=127.0.0.1,8000
 
-private-key-file=/etc/letsencrypt/live/ff.chengff.com/privkey.pem
+private-key-file=/etc/letsencrypt/live/safe.chengff.com/privkey.pem
 
-certificate-file=/etc/letsencrypt/live/ff.chengff.com/fullchain.pem
+certificate-file=/etc/letsencrypt/live/safe.chengff.com/fullchain.pem
 
 http2-proxy=yes
 

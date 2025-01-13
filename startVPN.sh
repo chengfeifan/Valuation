@@ -37,7 +37,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 iptables-save
 
 # 颁发证书
-echo "yes | sudo certbot certonly --standalone --email $EMAIL_ADDRESS -d $VPN_ADDRESS --agree-tos"
+yes | sudo certbot certonly --standalone --email $EMAIL_ADDRESS -d $VPN_ADDRESS --agree-tos
 
 # 安装squid和nghttpx
 sudo apt-get -y install squid
@@ -74,7 +74,7 @@ echo "frontend=*,8444
 
 backend=127.0.0.1,8000
 
-echo "private-key-file=/etc/letsencrypt/live/$VPN_ADDRESS/privkey.pem"
+private-key-file=/etc/letsencrypt/live/$VPN_ADDRESS/privkey.pem
 
 certificate-file=/etc/letsencrypt/live/$VPN_ADDRESS/fullchain.pem
 

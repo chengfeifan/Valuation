@@ -1,3 +1,15 @@
+#!/bin/bash
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <email_address> <vpn_address>"
+    exit 1
+fi
+
+# Assign the input variables
+EMAIL_ADDRESS=$1
+VPN_ADDRESS=$2
+
 # System: Debian
 # get certbot install
 sudo apt update
@@ -25,7 +37,7 @@ sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 iptables-save
 
 # 颁发证书
-yes | sudo certbot certonly --standalone --email 1105470619@qq.com -d cheng.chengff.com --agree-tos
+echo "yes | sudo certbot certonly --standalone --email $EMAIL_ADDRESS -d $VPN_ADDRESS --agree-tos"
 
 # 安装squid和nghttpx
 sudo apt-get -y install squid
@@ -62,9 +74,9 @@ echo "frontend=*,8444
 
 backend=127.0.0.1,8000
 
-private-key-file=/etc/letsencrypt/live/cheng.chengff.com/privkey.pem
+echo "private-key-file=/etc/letsencrypt/live/$VPN_ADDRESS/privkey.pem"
 
-certificate-file=/etc/letsencrypt/live/cheng.chengff.com/fullchain.pem
+certificate-file=/etc/letsencrypt/live/$VPN_ADDRESS/fullchain.pem
 
 http2-proxy=yes
 

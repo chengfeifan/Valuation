@@ -13,7 +13,7 @@ set -euo pipefail
 # =========================
 
 # 默认上游（你的 Cloud Run 地址）
-DEFAULT_UPSTREAM="https://idfmcs-intelligent-dyeing-control-297902607952.us-west1.run.app/"
+DEFAULT_UPSTREAM="https://service-297902607952.us-west1.run.app/"
 
 # ========== 参数 ==========
 DOMAIN="${DOMAIN:-}"       # 形如: dyeing.example.com（不填则走自签名）
